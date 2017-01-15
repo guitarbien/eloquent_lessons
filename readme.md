@@ -44,6 +44,14 @@
 
         php artisan make:model Dog -m
 
-11. 實際產生資料表
+11. 在 dogs migrations 加入 *name* 欄位
+
+12. 實際產生資料表
 
         php artisan migrate
+
+13. seeder 的部份改為使用 `Dog::create` 來塞資料
+
+14. 執行 seed，發現這樣資料寫入時會把 timestamp 更新至 create_at 和 update_at
+
+        php artisan db:seed --class=DogsTableSeeder
