@@ -1,5 +1,7 @@
 # Laravel Eloquent 練習
 
+## Migration, Model, Seeder, ModelFactory
+
 1. 使用 artisan migrate 準備 create table dogs 的 migration 語法
 
         php artisan make:migration create_table_dogs --create=dogs
@@ -65,3 +67,38 @@
 18. migrate:refresh 會重置資料庫，先做 rollback 再做 migrate，加上 --seed 之後會執行有設定在 DatabaseSeeder.php 的每個 seeder
 
         php artisan migrate:refresh --seed
+
+## Legacy Table
+
+先在 mysql 中執行與下語法，模擬 legacy 情境：
+
+    CREATE TABLE `TblContacts`
+    (
+    `Contacts_ID` INT NOT NULL AUTO_INCREMENT ,
+    `Contacts_Name` VARCHAR(50) NOT NULL ,
+    `Contacts_Email` VARCHAR(50) NOT NULL ,
+    PRIMARY KEY (`Contacts_ID`)
+    ) ENGINE = InnoDB;
+
+    INSERT INTO `TblContacts`
+    (`Contacts_ID`, `Contacts_Name`, `Contacts_Email`)
+    VALUES ('1', 'Jeff', 'jeff@codebyjeff.com');
+
+要將現有專案慢慢換成 Laravel 的話，維持資料庫不便，並改用 model的作法如下：
+
+1. create model Contact (因為已經有資料表，且假設資料是重要的，所以不加 -m)
+
+        php artisan make:model Contacts
+
+2. 建立了 model 但我們無法使用 `App\Contacts::all();`，因為我們實際的資料表叫做 TblContacts
+
+3. 每個 model 都有 $table 屬性，將他指定為目前的table name：TblContacts
+
+4. 每個 model 都有 $primaryKey 屬性，將他指定為目前的PK：Contact_ID
+
+5. 其他的欄位與 Laravel 命名習慣不同，可以用 method 來做轉換
+
+        public function contactName()
+        {
+            return $this->Contacts_Name;
+        }
