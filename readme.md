@@ -60,3 +60,8 @@
 
 16. dogs seeder 也改呼叫 factory 來產生50筆資料，而使用 fake->seed(123) 中的 123 是當做亂數種子用，只要固定是123，那 faker 每次產生出來的50筆資料順序都會一樣
 
+17. 在 DatabaseSeeder.php 中指名 DogsTableSeeder，這樣可以直接快速執行多個 seeder
+
+18. migrate:refresh 會重置資料庫，先做 rollback 再做 migrate，加上 --seed 之後會執行有設定在 DatabaseSeeder.php 的每個 seeder
+
+        php artisan migrate:refresh --seed
