@@ -40,3 +40,10 @@
 
 9. 執行完 rollback 之後若真的不要某張table了(例如 dogs)，再手動去將 /migrations/xxx_create_table_dogs.php 刪除，因為migrations的執行步驟都會被記錄在資料表 migrations中
 
+10. 建立 model 只要使用 -m 就會按照 laravel 的命名習慣：”資料表複數，model class 單數”的規則來建立 models 和 migrations (-m 會自動拿 model 的名字轉為小寫，並加上複數 來建立 migration 檔案)
+
+        php artisan make:model Dog -m
+
+11. 實際產生資料表
+
+        php artisan migrate
