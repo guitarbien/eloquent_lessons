@@ -102,3 +102,24 @@
         {
             return $this->Contacts_Name;
         }
+
+## Model Scope
+
+1. 使用 `php artisan migrate:reset` 並刪除 dogs migration, model, seeder 重先建立一次
+
+2. 這次 dogs migration 增加 name 和 age 兩個欄位
+
+        $table->string('name');
+        $table->integer('age')->nullable();
+
+3. seeder 也要增加 age
+
+4. model 中加入 scope 開頭的 function，如此在外部可直接使用 Dogs::ageGreaterThan(6) 來取得資料，現實專案中建議再用實務邏輯的 method 包裝起來，例如 dogsRequiringAntiRabbitBiteShot()
+
+        function dogsRequiringAntiRabbitBiteShot(){
+            return $this->ageGreaterThan(6);
+        }
+
+        function scopeAgeGreaterThan($query, $age) {
+            return $query->where('age', '>', $age);
+        }
