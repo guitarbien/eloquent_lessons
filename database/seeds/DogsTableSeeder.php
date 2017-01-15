@@ -13,9 +13,9 @@ class DogsTableSeeder extends Seeder
     public function run()
     {
         Dog::truncate();
-        Dog::create(['name' => 'Joe']);
-        Dog::create(['name' => 'Jock']);
-        Dog::create(['name' => 'Jackie']);
-        Dog::create(['name' => 'Jane']);
+
+        (new Faker\Generator)->seed(123);
+
+        factory(Dog::class, 50)->create();
     }
 }

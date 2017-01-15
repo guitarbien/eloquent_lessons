@@ -55,3 +55,8 @@
 14. 執行 seed，發現這樣資料寫入時會把 timestamp 更新至 create_at 和 update_at
 
         php artisan db:seed --class=DogsTableSeeder
+
+15. 使用 ModelFactory 來產生資料，告知 dogs 中的 name 欄位要用 $faker->firstname
+
+16. dogs seeder 也改呼叫 factory 來產生50筆資料，而使用 fake->seed(123) 中的 123 是當做亂數種子用，只要固定是123，那 faker 每次產生出來的50筆資料順序都會一樣
+
