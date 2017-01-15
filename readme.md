@@ -1,4 +1,4 @@
-# Laravel Eloguent 練習
+# Laravel Eloquent 練習
 
 1. 使用 artisan migrate 準備 create table dogs 的 migration 語法
 
@@ -33,3 +33,10 @@
 7. 實際在資料表 dogs 中產生剛剛準備的資料
 
         php artisan db:seed --class=DogsTableSeeder
+
+8. 若要將資料表全部清空還原，該使用
+
+        php artisan migrate:rollback
+
+9. 執行完 rollback 之後若真的不要某張table了(例如 dogs)，再手動去將 /migrations/xxx_create_table_dogs.php 刪除，因為migrations的執行步驟都會被記錄在資料表 migrations中
+
